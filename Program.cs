@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Collections.Generic;
 
@@ -182,8 +182,9 @@ namespace HangMan
             }
             else
             {
-                Console.WriteLine("Please enter only one character.");
-                return '_';
+                Console.WriteLine("Please enter only one character. (wait for 1.5 seconds)");
+                Thread.Sleep(1500);
+                return '\\';
             }
         }
 
