@@ -58,11 +58,11 @@ namespace HangMan
 
             //words used for hangman
             String[] wordsThatWillBeUsed = new String[5];
-            wordsThatWillBeUsed[0] = "poopies";
-            wordsThatWillBeUsed[1] = "kim";
+            wordsThatWillBeUsed[0] = "replacement";
+            wordsThatWillBeUsed[1] = "electronics";
             wordsThatWillBeUsed[2] = "calculator";
-            wordsThatWillBeUsed[3] = "jubby";
-            wordsThatWillBeUsed[4] = "peepidy";
+            wordsThatWillBeUsed[3] = "elephant";
+            wordsThatWillBeUsed[4] = "sandwich";
 
             //generate underlines to show length of word, underscores stored in sb
             for (int i = 0; i < wordsThatWillBeUsed[randomIndexOfArray].Length; i++)
