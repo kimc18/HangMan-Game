@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Collections.Generic;
 
@@ -38,13 +38,14 @@ namespace HangMan
         {
             System.Console.WriteLine("-----This set of instructions will disappear in 4 seconds-----");
             System.Console.WriteLine("1. Type 1 character then press enter.");
-            System.Console.WriteLine("2. You have 5 lives, when you have no lives left the game ends.");
+            System.Console.WriteLine("2. You have 6 lives, when you have no lives left the game ends.");
             System.Console.WriteLine("3. Goodluck!");
         }
 
         private static void PlayGame()
         {
-            var life = new Health { Lives = 5 };
+            var life = new Health { Lives = 6 };
+            Draw drawings = new Draw();
             
             string underscores = "";
             
@@ -58,8 +59,8 @@ namespace HangMan
             //words used for hangman
             String[] wordsThatWillBeUsed = new String[5];
             wordsThatWillBeUsed[0] = "poopies";
-            wordsThatWillBeUsed[1] = "harry";
-            wordsThatWillBeUsed[2] = "styles";
+            wordsThatWillBeUsed[1] = "kim";
+            wordsThatWillBeUsed[2] = "calculator";
             wordsThatWillBeUsed[3] = "jubby";
             wordsThatWillBeUsed[4] = "peepidy";
 
@@ -122,14 +123,39 @@ namespace HangMan
                         break;
                 }
 
-                if (life.Lives == 0)
+                switch(life.Lives)
                 {
-                    EndGameLose();
-                    System.Environment.Exit(0);
-                }
+                    case 0:
+                        drawings.Draw1();
+                        EndGameLose();
+                        System.Environment.Exit(0);
+                        break;
+                    
+                    case 1:
+                        drawings.Draw2();
+                        break;
 
+                    case 2:
+                        drawings.Draw3();
+                        break;
+
+                    case 3:
+                        drawings.Draw4();
+                        break;
+
+                    case 4:
+                        drawings.Draw5();
+                        break;
+                    
+                    case 5:
+                        drawings.Draw6();
+                        break;
+                    
+                    case 6:
+                        drawings.Draw7();
+                        break;
+                }
             } while (Array.Exists(charArrUnder, element => element == '_'));
-            
         }
 
         private static void EndGameLose()
