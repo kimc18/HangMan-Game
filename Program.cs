@@ -15,11 +15,11 @@ namespace HangMan
             Console.Clear();
 
             Instructions();
-            Thread.Sleep(3000); 
+            Thread.Sleep(4000); 
             Console.Clear();
 
             PlayGame();
-            //EndGame();
+            EndGameWin();
         }
 
         //splash screen
@@ -36,18 +36,15 @@ namespace HangMan
 
         static void Instructions()
         {
+            System.Console.WriteLine("-----This set of instructions will disappear in 4 seconds-----");
             System.Console.WriteLine("1. Type 1 character then press enter.");
             System.Console.WriteLine("2. You have 5 lives, when you have no lives left the game ends.");
             System.Console.WriteLine("3. Goodluck!");
-            System.Console.WriteLine("(This set of instructions will disappear in 3 seconds)");
         }
 
         private static void PlayGame()
         {
-            var life = new Health
-            {
-                Lives = 5
-            };
+            var life = new Health { Lives = 5 };
             
             string underscores = "";
             
@@ -74,13 +71,13 @@ namespace HangMan
 
             //all the underscores got added into a string
             string new_underscores = sb.ToString();
+            System.Console.WriteLine(new_underscores);
             char[] charArrUnder = new_underscores.ToCharArray(); //spaces are their own element, each _ is at char[i*2]
             List<char> wrongLetters = new List<char>();
+            string charArrUnder_String = new_underscores;
 
-            //Console.WriteLine(charArrUnder.Length);
-            System.Console.Write(charArrUnder);
-            System.Console.WriteLine("");
-            System.Console.Write(life.Lives);
+            System.Console.Write("\nLives left: ");
+            System.Console.WriteLine(life.Lives);
 
             //ask user for input then place the character in correct position and keep underscores
             do
@@ -88,42 +85,46 @@ namespace HangMan
                 string userInput = Console.ReadLine();
                 char validInput= CheckUserInput(userInput);
                 string validInputString = validInput.ToString();
-                string charArrUnder_String = new_underscores;
+
+                System.Console.WriteLine(charArrUnder_String);  
                 
-                //this will refresh the screen so that you dont get unnecessary text, it will also place the valid input in place 
-                if (wordsThatWillBeUsed[randomIndexOfArray].Contains(validInput))
+                //easily use switch statement using numbers
+                int caseNum = NumReturn(validInputString, wordsThatWillBeUsed[randomIndexOfArray]);
+                
+                switch (caseNum)
                 {
-                    List<int> list = GetPositions(wordsThatWillBeUsed[randomIndexOfArray], validInputString);
-                    foreach (int i in list)
-                    {
-                        for (int j = 0; j < list.Count; j++)
+                    //these will refresh the screen so that you dont get unnecessary text, it will also place the valid input in place and show the wrong letters
+                    case 1:
+                        List<int> list = GetPositions(wordsThatWillBeUsed[randomIndexOfArray], validInputString);
+                        foreach (int i in list)
                         {
-                            charArrUnder[i*2] = validInput;
+                            for (int j = 0; j < list.Count; j++)
+                            {
+                                charArrUnder[i*2] = validInput;
+                            }
                         }
-                    }
-                    charArrUnder_String = new string(charArrUnder);
-                    //charArrUnder_String = charArrUnder.ToString();
-                    Console.WriteLine(charArrUnder_String);
-                    Console.Clear();
-                    Console.WriteLine(charArrUnder_String);
-                    System.Console.Write("Lives left: ");
-                    System.Console.WriteLine(life.Lives);
-                    wrongLetters.ForEach(System.Console.Write);
-                }
-                else
-                {
-                    life.Lives--;
-                    Console.Clear();
-                    wrongLetters.Add(validInput);
-                    Console.WriteLine(charArrUnder_String);
-                    wrongLetters.ForEach(System.Console.Write);
-                    System.Console.Write("\nLives left: ");
-                    System.Console.WriteLine(life.Lives);
+                        charArrUnder_String = new string(charArrUnder);
+                        Console.Clear();
+                        Console.WriteLine(charArrUnder_String);
+                        wrongLetters.ForEach(System.Console.Write);
+                        Console.Write("\nLives left: ");
+                        Console.WriteLine(life.Lives);
+                        break;
+
+                    case 2:
+                        life.Lives--;
+                        Console.Clear();
+                        wrongLetters.Add(validInput);
+                        Console.WriteLine(charArrUnder_String);
+                        wrongLetters.ForEach(System.Console.Write);
+                        Console.Write("\nLives left: ");
+                        Console.WriteLine(life.Lives);
+                        break;
                 }
 
                 if (life.Lives == 0)
                 {
-                    EndGame();
+                    EndGameLose();
                     System.Environment.Exit(0);
                 }
 
@@ -131,9 +132,17 @@ namespace HangMan
             
         }
 
-        private static void EndGame()
+        private static void EndGameLose()
         {
-            Console.WriteLine("\n\n End!");
+            Console.WriteLine("\nWow good job you lost!");
+            Console.WriteLine("Thanks for playing though!");
+            Thread.Sleep(3000); 
+        }
+
+        private static void EndGameWin()
+        {
+            Console.WriteLine("\nYAY you won!");
+            Console.WriteLine("Thanks for playing!");
             Thread.Sleep(3000); 
         }
 
@@ -170,6 +179,18 @@ namespace HangMan
                 }
             }
             return ret;
+        }
+
+        private static int NumReturn(string userIn, string wordToCompare)
+        {
+            if (wordToCompare.Contains(userIn))
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
         }
     }
 }
