@@ -58,8 +58,8 @@ namespace HangMan
             //words used for hangman
             String[] wordsThatWillBeUsed = new String[5];
             wordsThatWillBeUsed[0] = "poopies";
-            wordsThatWillBeUsed[1] = "kim";
-            wordsThatWillBeUsed[2] = "calculator";
+            wordsThatWillBeUsed[1] = "harry";
+            wordsThatWillBeUsed[2] = "styles";
             wordsThatWillBeUsed[3] = "jubby";
             wordsThatWillBeUsed[4] = "peepidy";
 
