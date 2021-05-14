@@ -8,6 +8,7 @@ namespace HangMan
     {
         public Game() {}
 
+        //splash screen
         public void StartGame()
         {
             Console.WriteLine("  _    _          _   _  _____ __  __          _   _  ");
@@ -18,7 +19,8 @@ namespace HangMan
             Console.WriteLine(" |_|  |_/_/    \\_\\_| \\_|\\_____|_|  |_/_/    \\_\\_| \\_| ");
             
         }
-
+    
+        //Shows user what to do
         public void Instructions()
         {
             System.Console.WriteLine("-----This set of instructions will disappear in 4 seconds-----");
@@ -26,7 +28,8 @@ namespace HangMan
             System.Console.WriteLine("2. You have 6 lives, when you have no lives left the game ends.");
             System.Console.WriteLine("3. Goodluck!");
         }
-
+       
+        //Logic for game
         public void PlayGame()
         {
             var life = new Health { Lives = 6 };
@@ -156,7 +159,8 @@ namespace HangMan
             Console.WriteLine("Thanks for playing!");
             Thread.Sleep(3000); 
         }
-
+        
+        //Checks if user input is one char then returns one char, if more than one letter is input then it returns '/'
         private static char CheckUserInput(string a) //takes string as input, if length is of 1 char then convert to char and return char
         {
             if (a.Length == 1)
@@ -172,7 +176,8 @@ namespace HangMan
                 return '\\';
             }
         }
-
+    
+        //Gets positions of every instance of a letter
         private static List<int> GetPositions(string source, string searchString)
         {
             List<int> ret = new List<int>();
@@ -192,7 +197,8 @@ namespace HangMan
             }
             return ret;
         }
-
+        
+        //For easy access to switch case
         private static int NumReturn(string userIn, string wordToCompare)
         {
             if (wordToCompare.Contains(userIn))
