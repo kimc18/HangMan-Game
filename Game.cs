@@ -143,7 +143,7 @@ namespace HangMan
             } while (Array.Exists(charArrUnder, element => element == '_'));
         }
 
-        public void EndGameLose()
+        private static void EndGameLose()
         {
             Console.WriteLine("\nWow good job you lost!");
             Console.WriteLine("Thanks for playing though!");
